@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import { ControlMain } from './components/controls/src/ControlMain';
+import { HeaderMain } from './components/header/src/HeaderMain';
+import { ResultMain } from './components/result/src/ResultMain';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const AppWrapper = styled.div` 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  color: red;
+  font-family: 'Roboto', sans-serif;
+
+`;
+
+class App extends React.Component {
+    render() {
+        return (
+            <AppWrapper className="big">
+                <HeaderMain />
+                <ControlMain />
+                <ResultMain />
+            </AppWrapper>
+        );
+    }
 }
+
 
 export default App;
