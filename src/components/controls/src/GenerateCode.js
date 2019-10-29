@@ -16,6 +16,7 @@ margin: 20px;
 `;
 
 const InputContainer = styled.div `
+
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -57,7 +58,6 @@ margin: 20px;
 `;
 
 const GeneratedPassword = styled.h1 `
-
 color: black;
 `;
 
@@ -96,8 +96,6 @@ export class GenerateCode extends React.Component {
     handleChange(event) {
         this.setState({value: event.target.value});
     }
-
-
 
 // function for randomize password output
 
@@ -228,23 +226,26 @@ export class GenerateCode extends React.Component {
         return (
             <GenerateCodeContainer>
                 <InputContainer>
-                    <div>
+                    <div className="">
                         <h1 className="heroku"> Generate your own password</h1>
                     </div>
                     <div>
-                    <InputRange type="range" name="Length"  min="6" max="25" defaultValue={this.state.value} onChange={this.handleChange} />
+                    <InputRange type="range" name="Length"  min="6" max="26" defaultValue={this.state.value} onChange={this.handleChange} />
+                    </div>
+                    <div>
+                        <p>{this.state.value}</p>
                     </div>
                 </InputContainer>
                 <ToggleButtonContainer>
-                    <div>
+                    <div className="div-centering">
                         <h3>Use Big Letters?</h3>
                         <ToggleButton onClick={this.handleClickOne}>{this.state.toggleStateOne ? 'ON' : 'OFF'}</ToggleButton>
                     </div>
-                    <div>
+                    <div className="div-centering">
                         <h3> Use Numbers?</h3>
                         <ToggleButton onClick={this.handleClickTwo}>{this.state.toggleStateTwo ? 'ON' : 'OFF'}</ToggleButton>
                     </div>
-                    <div>
+                    <div className="div-centering">
                         <h3> Use Symbols? </h3>
                         <ToggleButton onClick={this.handleClickThree}>{this.state.toggleStateThree ? 'ON' : 'OFF'}</ToggleButton>
                     </div>

@@ -1,5 +1,17 @@
+body{
+    margin:0px;
+    padding: 0px;
+}
+
 .heroku {
+    padding: 1px;
+    margin-bottom: 150px;
     font-size: 100px;
+}
+.div-centering {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 input[type=range] {
