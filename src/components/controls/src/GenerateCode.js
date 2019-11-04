@@ -33,19 +33,43 @@ margin: 20px;
 `;
 
 const ToggleButton = styled.button `
-margin: 5px;
-width:100px;
-padding: 10px 28px 10px 28px;
-background-color: #0b0c11;
-color: #f5f5f5;
-border: none;
-border-radius: 5px;
-display:inline-block;
-cursor:pointer;
-font-size:17px;
-font-weight: 600;
-text-decoration:none;
-`;
+        /*margin: 5px;
+        width:100px;
+        padding: 10px 28px 10px 28px;
+        background-color: #0b0c11;
+        color: #f5f5f5;
+        border: none;
+        border-radius: 5px;
+        display:inline-block;
+        cursor:pointer;
+        font-size:17px;
+        font-weight: 600;
+        text-decoration:none;
+        */
+        width:100px;
+        padding: 10px 28px 10px 28px;
+        background-color: #0b0c11;
+        color: #f5f5f5;
+        border: none;
+        border-radius: 5px;
+        display:inline-block;
+        cursor:pointer;
+        font-size:17px;
+        font-weight: 600;
+        text-decoration:none;
+        ${(props) => { // yellow collor
+        if (props.toggle) {
+            return `
+            background-color: #F5DF28;
+            `;
+        }
+        else { // red collor
+            return `
+            background-color: #FF1517; 
+            `
+        }
+    }}
+    `;
 
 const ResultBoxContainer = styled.div `
 display: flex;
@@ -68,10 +92,11 @@ min-width: 450px;
 export class GenerateCode extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {toggleStateOne: false, toggleStateTwo : false, toggleStateThree : false, value : 16};
+        this.state = {toggleStateOne: false, toggleStateTwo : false, toggleStateThree : false, toggleStateFour : false, value : 21};
         this.handleClickOne = this.handleClickOne.bind(this);
         this.handleClickTwo = this.handleClickTwo.bind(this);
         this.handleClickThree = this.handleClickThree.bind(this);
+        this.handleClickFour = this.handleClickFour.bind(this);
         this.handleChange= this.handleChange.bind(this);
     }
 
@@ -90,6 +115,12 @@ export class GenerateCode extends React.Component {
     handleClickThree() {
         this.setState(prevState => ({
             toggleStateThree: !prevState.toggleStateThree
+        }));
+    }
+
+    handleClickFour() {
+        this.setState(prevState => ({
+            toggleStateFour: !prevState.toggleStateFour
         }));
     }
 
@@ -117,7 +148,7 @@ export class GenerateCode extends React.Component {
         for ( let i = 0; i < length; i++ ) {
             password += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
-        return password.toLocaleUpperCase();
+          return password.toLocaleUpperCase();
     }
 
     generateNumbersPassword () { // numeric password
@@ -180,9 +211,93 @@ export class GenerateCode extends React.Component {
 
     }
 
-    generateLettersAndNumbersAndSymbolsPassword () { // letters and symbols password
+    generateBigLettersAndNumbersAndSymbolsPassword () { // letters and symbols password
         let password = '';
         let characters =  this.generateBigLettersPassword() + this.generateNumbersPassword() + this.generateSymbolsPassword();
+        let charactersLength = characters.length;
+        let length = this.state.value;
+        for ( let i = 0; i < length; i++ ) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return password;
+
+    }
+
+    generateBigLettersAndNumbersAndSymbolsAndSmallLettersPassword () { // letters and symbols password
+        let password = '';
+        let characters =  this.generateBigLettersPassword() + this.generateNumbersPassword() + this.generateSymbolsPassword() + this.generateSmallLettersPassword();
+        let charactersLength = characters.length;
+        let length = this.state.value;
+        for ( let i = 0; i < length; i++ ) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return password;
+
+    }
+
+    generateBigLettersAndSmallLettersPassword () { // letters and symbols password
+        let password = '';
+        let characters =  this.generateBigLettersPassword() + this.generateSmallLettersPassword();
+        let charactersLength = characters.length;
+        let length = this.state.value;
+        for ( let i = 0; i < length; i++ ) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return password;
+
+    }
+
+    generateNumbersAndSmallLettersPassword () { // letters and symbols password
+        let password = '';
+        let characters =  this.generateNumbersPassword() + this.generateSmallLettersPassword();
+        let charactersLength = characters.length;
+        let length = this.state.value;
+        for ( let i = 0; i < length; i++ ) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return password;
+
+    }
+
+    generateSymbolsAndSmallLettersPassword () { // letters and symbols password
+        let password = '';
+        let characters =  this.generateSymbolsPassword() + this.generateSmallLettersPassword();
+        let charactersLength = characters.length;
+        let length = this.state.value;
+        for ( let i = 0; i < length; i++ ) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return password;
+
+    }
+
+    generateSymbolsAndNumbersAndSmallLettersPassword () { // symbols and numbers and  small letters
+        let password = '';
+        let characters =  this.generateSymbolsPassword() + this.generateNumbersPassword() + this.generateSmallLettersPassword();
+        let charactersLength = characters.length;
+        let length = this.state.value;
+        for ( let i = 0; i < length; i++ ) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return password;
+
+    }
+
+    generateBigLettersAndNumbersAndSmallLettersPassword () { // BIG LETTERS and numbers and  small letters
+        let password = '';
+        let characters =  this.generateBigLettersPassword() + this.generateNumbersPassword() + this.generateSmallLettersPassword();
+        let charactersLength = characters.length;
+        let length = this.state.value;
+        for ( let i = 0; i < length; i++ ) {
+            password += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return password;
+
+    }
+
+    generateBigLettersAndSymbolsAndSmallLettersPassword () { // BIG LETTERS and symbols and  small letters
+        let password = '';
+        let characters =  this.generateBigLettersPassword() + this.generateSymbolsPassword() + this.generateSmallLettersPassword();
         let charactersLength = characters.length;
         let length = this.state.value;
         for ( let i = 0; i < length; i++ ) {
@@ -198,28 +313,53 @@ export class GenerateCode extends React.Component {
         sort.push(this.state.toggleStateOne);
         sort.push(this.state.toggleStateTwo);
         sort.push(this.state.toggleStateThree);
-         if (sort[0] === true && sort[1] === false && sort[2] === false) {
+        sort.push(this.state.toggleStateFour);
+         if (sort[0] === true && sort[1] === false && sort[2] === false && sort[3] === false) {
              return this.generateBigLettersPassword() //  BIG LETTERS
          }
-        if (sort[0] === false && sort[1] === true && sort[2] === false) {
+        if (sort[0] === false && sort[1] === true && sort[2] === false && sort[3] === false) {
             return this.generateNumbersPassword() // numbers
         }
-        if (sort[0] === false && sort[1] === false && sort[2] === true) {
+        if (sort[0] === false && sort[1] === false && sort[2] === true && sort[3] === false) {
             return this.generateSymbolsPassword() // symbols
         }
-        if  (sort[0] === true && sort[1] === true && sort[2] === false ) {
-            return this.generateLettersAndNumbersPassword() // letters and numbers
+        if (sort[0] === false && sort[1] === false && sort[2] === false && sort[3] === true) {
+            return this.generateSmallLettersPassword() // small letters
         }
-        if  (sort[0] === true && sort[1] === false && sort[2] === true ) {
-            return this.generateLettersAndSymbolsPassword() // letters and symbols
+        if  (sort[0] === true && sort[1] === true && sort[2] === false && sort[3] === false ) {
+            return this.generateLettersAndNumbersPassword() // BIG LETTERS and numbers
         }
-        if  (sort[0] === false && sort[1] === true && sort[2] === true ) {
+        if  (sort[0] === true && sort[1] === false && sort[2] === true && sort[3] === false ) {
+            return this.generateLettersAndSymbolsPassword() // BIG LETTERS and symbols
+        }
+        if  (sort[0] === false && sort[1] === true && sort[2] === true && sort[3] === false ) {
             return this.generateNumbersAndSymbolsPassword()  // numbers and symbols
         }
-        if  (sort[0] === true && sort[1] === true && sort[2] === true ) {
-            return this.generateLettersAndNumbersAndSymbolsPassword() // letters and numbers and symbols
+        if  (sort[0] === true && sort[1] === true && sort[2] === true && sort[3] === false ) {
+            return this.generateBigLettersAndNumbersAndSymbolsPassword() // BIG LETTERS and numbers and symbols
         }
-        else return this.generateSmallLettersPassword() // small letters
+        if  (sort[0] === true && sort[1] === true && sort[2] === true && sort[3] === true ) {
+            return this.generateBigLettersAndNumbersAndSymbolsAndSmallLettersPassword() // BIG LETTERS and numbers and symbols and small letters
+        }
+        if  (sort[0] === true && sort[1] === false && sort[2] === false && sort[3] === true ) {
+            return this.generateBigLettersAndSmallLettersPassword() // BIG LETTERS and small letters
+        }
+        if  (sort[0] === false && sort[1] === true && sort[2] === false && sort[3] === true ) {
+            return this.generateNumbersAndSmallLettersPassword() // numbers and small letters
+        }
+        if  (sort[0] === false && sort[1] === false && sort[2] === true && sort[3] === true ) {
+            return this.generateSymbolsAndSmallLettersPassword() // symbols and small letters
+        }
+        if  (sort[0] === false && sort[1] === true && sort[2] === true && sort[3] === true ) {
+            return this.generateSymbolsAndNumbersAndSmallLettersPassword() // symbols and numbers and  small letters
+        }
+        if  (sort[0] === true && sort[1] === true && sort[2] === false && sort[3] === true ) {
+            return this.generateBigLettersAndNumbersAndSmallLettersPassword() // BIG LETTERS and numbers and  small letters
+        }
+        if  (sort[0] === true && sort[1] === false && sort[2] === true && sort[3] === true ) {
+            return this.generateBigLettersAndSymbolsAndSmallLettersPassword() // BIG LETTERS and symbols and  small letters
+        }
+        else return "Generate Password" // small letters
     }
 
     render() {
@@ -230,7 +370,7 @@ export class GenerateCode extends React.Component {
                         <h1 className="heroku"> Generate your own password</h1>
                     </div>
                     <div>
-                    <InputRange type="range" name="Length"  min="6" max="26" defaultValue={this.state.value} onChange={this.handleChange} />
+                    <InputRange type="range" name="Length"  min="6" max="36" defaultValue={this.state.value} onChange={this.handleChange} />
                     </div>
                     <div>
                         <p>{this.state.value}</p>
@@ -248,6 +388,10 @@ export class GenerateCode extends React.Component {
                     <div className="div-centering">
                         <h3> Use Symbols? </h3>
                         <ToggleButton onClick={this.handleClickThree}>{this.state.toggleStateThree ? 'ON' : 'OFF'}</ToggleButton>
+                    </div>
+                    <div className="div-centering">
+                        <h3> Use Small Letters? </h3>
+                        <ToggleButton onClick={this.handleClickFour}>{this.state.toggleStateFour ? 'ON' : 'OFF'}</ToggleButton>
                     </div>
                 </ToggleButtonContainer>
                 <ButtonContainer>
