@@ -1,0 +1,25 @@
+body{
+    margin:0px;
+    padding: 0px;
+    background-color: rgba(230, 230, 230, 0.04);;
+}
+
+.heading {
+    display: block;
+    padding: 20px;
+    margin-bottom: 150px;
+    font-size: 100px;
+    text-align: center;
+
+}
+
+.Button-Heading--fontSize {
+    font-size: 35px;
+
+}
+
+
+
+
+
+

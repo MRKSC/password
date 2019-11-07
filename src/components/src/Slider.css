@@ -1,13 +1,4 @@
-body{
-    margin:0px;
-    padding: 0px;
-}
 
-.heroku {
-    padding: 1px;
-    margin-bottom: 150px;
-    font-size: 100px;
-}
 .div-centering {
     display: flex;
     align-items: center;
@@ -44,7 +35,7 @@ input[type=range]::-webkit-slider-thumb {
     height: 36px;
     width: 16px;
     border-radius: 3px;
-    background: #00e8bf;
+    background: #dc4421;
     cursor: pointer;
     margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
 
@@ -56,7 +47,7 @@ input[type=range]::-moz-range-thumb {
     height: 36px;
     width: 16px;
     border-radius: 3px;
-    background: #00e8bf;
+    background: #dc4421;
     cursor: pointer;
 }
 
@@ -66,7 +57,7 @@ input[type=range]::-ms-thumb {
     height: 36px;
     width: 16px;
     border-radius: 3px;
-    background: #00e8bf;
+    background: #dc4421;
     cursor: pointer;
 }
 
@@ -145,8 +136,4 @@ input[type=range]:focus::-ms-fill-upper {
     0%   { opacity: 0; }
     100% { opacity: 1; }
 }
-
-
-
-
 
