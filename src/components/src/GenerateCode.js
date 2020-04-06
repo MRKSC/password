@@ -1,12 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import './GenerateCode.css';
-import './MediaQueries.css'
-import './Slider.css'
+import './MediaQueries.css';
+import './Slider.css';
+import lightTheme from '../../Themes/Light';
+import darkTheme from '../../Themes/Dark';
+import mainBg from "../../images/password-bg-main.jpg"
 
 const GenerateCodeContainer = styled.div`
-  padding: 10px;
-  margin: 10px;
+  background-color: ${props => props.theme.backgroundColors.mainBackground}; ;
+  min-height: 100vh;
+  min-width: 98%;
+  color: ${props => props.theme.fontColors.color};
 `;
 
 const InputContainer = styled.div`
@@ -15,14 +20,13 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   @media (max-width: 768px) {
-  
   }
 `;
 
 const InputRange = styled.input`
   min-width: 450px;
-   @media (max-width: 768px) {
-  min-width: 250px;
+  @media (max-width: 768px) {
+    min-width: 250px;
   }
 `;
 
@@ -32,13 +36,11 @@ const ToggleButtonContainer = styled.div`
   justify-content: space-around;
   flex-direction: row;
   margin: 20px;
-    @media (max-width: 768px) {
-  font-size: 20px;
-  flex-direction: column;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    flex-direction: column;
   }
 `;
-
-
 
 const ButtonContainer = styled.div`
   padding-top: 25px;
@@ -47,67 +49,105 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   margin: 20px;
 `;
-
-const ToggleButton = styled.button`
+const ThemeToggleButton = styled.button`
   margin: 5px;
   width: 100px;
   padding: 10px 28px 10px 28px;
-  background-color: ${props => (props.primary ? `#dc4421` : `black`)};
-  color: #f5f5f5;
+  background-color: ${props => (props.primary ? `#f9f9f9` : `black`)};
+  color: ${props => (props.primary ? `black` : `#f9f9f9`)};
   border: none;
   border-radius: 5px;
   display: inline-block;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-   @media (max-width: 768px) {
-  font-size: 10px;
+  @media (max-width: 768px) {
+    font-size: 10px;
   }
+`;
+const ToggleButton = styled.button`
+  margin: 5px;
+  width: 100px;
+  padding: 10px 28px 10px 28px;
+  background: ${props => (props.primary ? `#dc4421` : `black`)};
+  color: ${props => (props.primary ? `black` : `white`)};
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  background: ${props => props};
+`;
+
+const ToggleButtonThemed = styled.button`
+  margin: 5px;
+  width: 100px;
+  padding: 10px 28px 10px 28px;
+  background: ${props => (props.primary ? `#ff6300` : `white`)};
+  color: ${props => (props.primary ? `black` : `black`)};
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  background: ${props => props};
 `;
 
 const ResultBoxContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  min-width: 700px;
-  background: #e6e6e6;
+  font-size: 75px;
+
   padding: 20px;
   margin: 20px;
-     @media (max-width: 768px) {
-     
-  min-width: 250px;
+  @media (max-width: 768px) {
+    min-width: 250px;
   }
 `;
 
 const GeneratedPassword = styled.h1`
-  color: black;
-  @media (max-width: 768px) {
-  font-size: 13px;
+  font-size: 78px;
+    ${props => props.theme.fontColors.color};
+  @media (max-width: 1300px) {
+    font-size: 35px;
+  }
+   @media (max-width: 700px) {
+    font-size: 14px;
   }
 `;
-
-
 
 export class GenerateCode extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggleStateOne: false,
+      toggleStateOne: true,
       toggleStateTwo: false,
       toggleStateThree: false,
       toggleStateFour: false,
       rngActualValue: 21,
+      darkThemeOn: false
     };
     this.handleClickOne = this.handleClickOne.bind(this);
     this.handleClickTwo = this.handleClickTwo.bind(this);
     this.handleClickThree = this.handleClickThree.bind(this);
     this.handleClickFour = this.handleClickFour.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
+    this.themeSwitchHandler = this.themeSwitchHandler.bind(this);
   }
 
   // event handlers
+  themeSwitchHandler() {
+    this.setState(prevState => ({
+      darkThemeOn: !prevState.darkThemeOn
+    }));
+  }
+
   handleClickOne() {
     this.setState(prevState => ({
       toggleStateOne: !prevState.toggleStateOne
@@ -501,56 +541,126 @@ export class GenerateCode extends React.Component {
 
   render() {
     return (
-      <GenerateCodeContainer>
-        <InputContainer>
-          <div className="">
-            <h1 className="heading"> Generate Password</h1>
-          </div>
+      <ThemeProvider theme={this.state.darkThemeOn ? darkTheme : lightTheme}>
+        <GenerateCodeContainer>
+          <ThemeToggleButton
+            primary={this.state.darkThemeOn}
+            onClick={this.themeSwitchHandler}
+          >
+            {this.state.darkThemeOn ? 'Dark' : 'Light'}
+          </ThemeToggleButton>
+          <InputContainer>
+            <div className="">
+                <h1 className="heading"> GENERATE PASSWORD</h1>
+            </div>
+            <div>
+              <InputRange
+                type="range"
+                name="Length"
+                min="6"
+                max="36"
+                defaultValue={this.state.rngActualValue}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div>
+              <h3>{this.state.rngActualValue}</h3>
+            </div>
+          </InputContainer>
           <div>
-            <InputRange
-              type="range"
-              name="Length"
-              min="6"
-              max="36"
-              defaultValue={this.state.rngActualValue}
-              onChange={this.handleChange}
-            />
+            {this.state.darkThemeOn === true ? (
+              <ToggleButtonContainer>
+                <div className="div-centering">
+                  <h3 className="Button-Heading--fontSize">Big Letters?</h3>
+                  <ToggleButtonThemed
+                    primary={this.state.toggleStateOne}
+                    onClick={this.handleClickOne}
+                  >
+                    {this.state.toggleStateOne ? 'ON' : 'OFF'}
+                  </ToggleButtonThemed>
+                </div>
+                <div className="div-centering">
+                  <h3 className="Button-Heading--fontSize">
+                    {' '}
+                    Small Letters?{' '}
+                  </h3>
+                  <ToggleButtonThemed
+                      primary={this.state.toggleStateFour}
+                      onClick={this.handleClickFour}
+                  >
+                    {this.state.toggleStateFour ? 'ON' : 'OFF'}
+                  </ToggleButtonThemed>
+                </div>
+                <div className="div-centering">
+                  <h3 className="Button-Heading--fontSize">Numbers?</h3>
+                  <ToggleButtonThemed
+                    primary={this.state.toggleStateTwo}
+                    onClick={this.handleClickTwo}
+                  >
+                    {this.state.toggleStateTwo ? 'ON' : 'OFF'}
+                  </ToggleButtonThemed>
+                </div>
+                <div className="div-centering">
+                  <h3 className="Button-Heading--fontSize">Symbols? </h3>
+                  <ToggleButtonThemed
+                    primary={this.state.toggleStateThree}
+                    onClick={this.handleClickThree}
+                  >
+                    {this.state.toggleStateThree ? 'ON' : 'OFF'}
+                  </ToggleButtonThemed>
+                </div>
+              </ToggleButtonContainer>
+            ) : (
+              <ToggleButtonContainer>
+                <div className="div-centering">
+                  <h3 className="Button-Heading--fontSize">Big Letters?</h3>
+                  <ToggleButton
+                    primary={this.state.toggleStateOne}
+                    onClick={this.handleClickOne}
+                  >
+                    {this.state.toggleStateOne ? 'ON' : 'OFF'}
+                  </ToggleButton>
+                </div>
+                <div className="div-centering">
+                  <h3 className="Button-Heading--fontSize">
+                    {' '}
+                    Small Letters?{' '}
+                  </h3>
+                  <ToggleButton
+                      primary={this.state.toggleStateFour}
+                      onClick={this.handleClickFour}
+                  >
+                    {this.state.toggleStateFour ? 'ON' : 'OFF'}
+                  </ToggleButton>
+                </div>
+                <div className="div-centering">
+                  <h3 className="Button-Heading--fontSize">Numbers?</h3>
+                  <ToggleButton
+                    primary={this.state.toggleStateTwo}
+                    onClick={this.handleClickTwo}
+                  >
+                    {this.state.toggleStateTwo ? 'ON' : 'OFF'}
+                  </ToggleButton>
+                </div>
+                <div className="div-centering">
+                  <h3 className="Button-Heading--fontSize">Symbols? </h3>
+                  <ToggleButton
+                    primary={this.state.toggleStateThree}
+                    onClick={this.handleClickThree}
+                  >
+                    {this.state.toggleStateThree ? 'ON' : 'OFF'}
+                  </ToggleButton>
+                </div>
+              </ToggleButtonContainer>
+            )}
           </div>
-          <div>
-            <h3>{this.state.rngActualValue}</h3>
-          </div>
-        </InputContainer>
-        <ToggleButtonContainer>
-          <div className="div-centering">
-            <h3 className="Button-Heading--fontSize">Use Big Letters?</h3>
-            <ToggleButton primary={this.state.toggleStateOne} onClick={this.handleClickOne}>
-              {this.state.toggleStateOne ? 'ON' : 'OFF'}
-            </ToggleButton>
-          </div>
-          <div className="div-centering">
-            <h3 className="Button-Heading--fontSize"> Use Numbers?</h3>
-            <ToggleButton primary={this.state.toggleStateTwo} onClick={this.handleClickTwo}>
-              {this.state.toggleStateTwo ? 'ON' : 'OFF'}
-            </ToggleButton>
-          </div>
-          <div className="div-centering">
-            <h3 className="Button-Heading--fontSize"> Use Symbols? </h3>
-            <ToggleButton primary={this.state.toggleStateThree} onClick={this.handleClickThree}>
-              {this.state.toggleStateThree ? 'ON' : 'OFF'}
-            </ToggleButton>
-          </div>
-          <div className="div-centering">
-            <h3 className="Button-Heading--fontSize"> Use Small Letters? </h3>
-            <ToggleButton primary={this.state.toggleStateFour} onClick={this.handleClickFour}>
-              {this.state.toggleStateFour ? 'ON' : 'OFF'}
-            </ToggleButton>
-          </div>
-        </ToggleButtonContainer>
-        <ButtonContainer>  </ButtonContainer>
-        <ResultBoxContainer>
-          <GeneratedPassword>{this.sortState()}</GeneratedPassword>
-        </ResultBoxContainer>
-      </GenerateCodeContainer>
+
+          <ButtonContainer> </ButtonContainer>
+          <ResultBoxContainer>
+              <GeneratedPassword>{this.sortState()}</GeneratedPassword>
+          </ResultBoxContainer>
+        </GenerateCodeContainer>
+      </ThemeProvider>
     );
   }
 }
